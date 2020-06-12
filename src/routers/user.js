@@ -4,7 +4,7 @@ const auth=require('../middleware/auth')
 const router = new express.Router()
 const multer=require('multer')
 const sharp=require('sharp')
-const {sendWelcomeEmail,sendCancellationEmail}=require('../emails/account')
+const sendmail=require('../emails/nodemailer')
 
 router.post('/users',async (req,res)=>{
     //res.send('testing')
@@ -17,7 +17,7 @@ router.post('/users',async (req,res)=>{
     const user = new User(req.body)
     try{
     await user.save()
-    sendWelcomeEmail(user.email,user.name)
+    sendWelcomeEmail(user.email,user.name,"Welcome")
     const token=await user.generateAuthToken()
     res.status(201).send({user,token}) // res.send uses JSON.stringify to that's why toJSON is called
     
@@ -134,7 +134,7 @@ router.delete('/users/me',auth, async (req, res) => {
     try {
         //const user = await User.findByIdAndDelete(req.params.id)
         await req.user.remove()
-        sendCancellationEmail(req.user.email,req.user.name)
+        sendmail(req.user.email,req.user.name,"Bye")
         // if (!user) {
         //     return res.status(404).send()
         // }

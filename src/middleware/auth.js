@@ -10,7 +10,7 @@ const auth=async (req,res,next)=>{
         //console.log("Helllo")
         //console.log(decode._id)
         const user=await User.findOne({_id:decode._id,'tokens.token':token}) // check if the token exist return only if the token exist
-        console.log(user)
+        console.log("Hi ",user)
         if(!user){
             throw new Error()
         }

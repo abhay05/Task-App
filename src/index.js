@@ -1,4 +1,12 @@
 const express=require('express')
+const path=require('path')
+const sendmail=require('nodemailer')
+
+
+
+//console.log("Hello ",`{path.join(__dirname,'../config/dev.env')}`)
+require('dotenv').config({path:path.join(__dirname,'../config/dev.env')});
+//console.log(process.env.PORT)
 require('./db/mongoose')
 const userRouter=require('./routers/user')
 const taskRouter=require('./routers/task')
@@ -109,3 +117,4 @@ app.listen(port,()=>{
 // myFunction().catch((e)=>{
 //     console.log(e)
 // })
+

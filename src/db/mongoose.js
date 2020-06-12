@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
 const validator=require('validator')
+//require('dotenv').config({ path: '../../config' })
 
 mongoose.connect(process.env.MONGODB_URL,{
     useNewUrlParser:true,
